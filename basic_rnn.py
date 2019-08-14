@@ -30,7 +30,8 @@ def read_from_file():
         print(file_path)
         with open(file_path) as f:
             line = f.readlines()
-            print(line)
+            for word in line:
+                print(word)
         if i > 5:
             print("over")
             return
