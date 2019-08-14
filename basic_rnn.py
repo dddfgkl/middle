@@ -3,6 +3,7 @@ import os
 import time
 import _pickle as pickle
 import tensorflow as tf
+from string import punctuation
 
 flags = tf.flags
 FLAGS = flags.FLAGS
@@ -37,9 +38,11 @@ def read_from_file():
             print("over")
             return
 
-
+def test1():
+    print(punctuation, type(punctuation))
 
 def main():
-    read_from_file()
+    test1()
+    #read_from_file()
 
 main()
