@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
 import time
+import _pickle as pickle
 import tensorflow as tf
 
 flags = tf.flags
@@ -21,8 +22,8 @@ def read_from_file():
     train_neg_data_dir = "./aclImdb/train/neg"
     pos_files = os.listdir(train_pos_data_dir)
     neg_files = os.listdir(train_neg_data_dir)
-    if pos_files == None:
-        print("pos_dir is None")
+    if pos_files == None or neg_files == None:
+        print("pos_files or neg_files is None")
         return
     for i, name in enumerate(pos_files):
         print(i, name)
