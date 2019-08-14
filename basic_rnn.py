@@ -27,6 +27,7 @@ def read_from_file():
         return
     for i, name in enumerate(pos_files):
         file_path =os.path.join(train_pos_data_dir, name)
+        print(file_path)
         with open(file_path) as f:
             line = f.readlines()
             print(line)
