@@ -26,9 +26,17 @@ def read_from_file():
         print("pos_files or neg_files is None")
         return
     for i, name in enumerate(pos_files):
-        print(i, name)
-        if i > 100:
+        file_path =os.path.join(train_pos_data_dir, name)
+        with open(file_path) as f:
+            line = f.readlines()
+            words = line.strip().split()
+            for word in words:
+                print(word)
+        if i > 5:
+            print("over")
             return
+
+
 
 def main():
     read_from_file()
