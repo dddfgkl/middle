@@ -29,9 +29,7 @@ def read_from_file():
         file_path =os.path.join(train_pos_data_dir, name)
         with open(file_path) as f:
             line = f.readlines()
-            words = line.strip().split()
-            for word in words:
-                print(word)
+            print(line)
         if i > 5:
             print("over")
             return
