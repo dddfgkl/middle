@@ -16,8 +16,8 @@ def process_data():
 
 
 def read_from_file():
-    train_pos_data_dir = ""
-    train_neg_data_dir = ""
+    train_pos_data_dir = "./aclImdb/train/pos"
+    train_neg_data_dir = "./aclImdb/train/neg"
     pos_files = os.listdir(train_pos_data_dir)
     neg_files = os.listdir(train_neg_data_dir)
     for i, name in enumerate(pos_files):
