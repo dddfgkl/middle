@@ -31,3 +31,5 @@ def read_from_file():
 
 def main():
     read_from_file()
+
+main()
