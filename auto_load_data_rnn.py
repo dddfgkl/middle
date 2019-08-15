@@ -161,7 +161,7 @@ def build_graph():
                 total_loss += batch_loss
 
             # 在train上准确率
-            train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
+            train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels, keep_prob:1.0})
             train_acc = train_corrects / train_labels.shape[0]
             # dnn_train_accuracy.append(train_acc)
 
