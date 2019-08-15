@@ -6,7 +6,7 @@ print(tf.__version__)
 
 imdb = keras.datasets.imdb
 
-(train_data, train_labels), (test_data, test_labels) = imdb.load_data('/home/kesci/input/idmb2286/imdb.npz',num_words=15000)
+(train_data, train_labels), (test_data, test_labels) = imdb.load_data('./imdb.npz',num_words=15000)
 
 print("Training entries: {}, labels: {}".format(len(train_data), len(train_labels)))
 
