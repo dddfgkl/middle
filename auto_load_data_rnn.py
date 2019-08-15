@@ -166,7 +166,7 @@ def build_graph():
             # dnn_train_accuracy.append(train_acc)
 
             # 在test上准确率
-            test_data_small, test_labels_samll = get_batch(test_data, test_labels, 1000)
+            test_data_small, test_labels_samll = test_data[:1000], test_labels[:1000]
             test_corrects = sess.run(accuracy, feed_dict={input: test_data_small, targets: test_labels_samll, keep_prob:1.0})
             test_acc = test_corrects / test_data.shape[0]
             # dnn_test_accuracy.append(test_acc)
