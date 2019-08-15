@@ -105,8 +105,8 @@ def build_graph():
     w1 = tf.Variable(tf.random_normal([256, 16]))
     b1 = tf.Variable(tf.random_normal([16]))
 
-    w2 = tf.Variable(tf.random_normal(16, 1))
-    b2 = tf.Variable(tf.random_normal(1))
+    w2 = tf.Variable(tf.random_normal([16, 1]))
+    b2 = tf.Variable(tf.random_normal([1]))
 
     input, targets, keep_prob = pre_build()
     embeded = tf.nn.embedding_lookup(embedding, input)
