@@ -29,8 +29,8 @@ vocab_size = len(word_index)
 embed_size = 256
 LEARNING_RATE = 0.001
 BATCH_SIZE = 200
-EPOCHES = 10
-KEEP_PROB = 0.2
+EPOCHES = 100
+KEEP_PROB = 0.5
 
 reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 
@@ -166,7 +166,7 @@ def build_graph():
             # dnn_train_accuracy.append(train_acc)
 
             # 在test上准确率
-            test_data_small, test_labels_samll = test_data[:1000], test_labels[:1000]
+            test_data_small, test_labels_samll = test_data, test_labels
             test_corrects = sess.run(accuracy, feed_dict={input: test_data_small, targets: test_labels_samll, keep_prob:1.0})
             test_acc = test_corrects / test_data.shape[0]
             # dnn_test_accuracy.append(test_acc)
