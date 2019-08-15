@@ -8,9 +8,10 @@ print(tf.__version__)
 imdb = keras.datasets.imdb
 
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data('./imdb.npz',num_words=15000)
+train_labels = train_labels.reshape(-1, 1)
+test_labels = test_labels.reshape(-1, 1)
 
-
-print("Training entries: {}, labels: {}".format(train_data.shape, train_labels))
+print("Training entries: {}, labels: {}".format(train_data.shape, train_labels.shape))
 time.sleep(5)
 
 # A dictionary mapping words to an integer index
