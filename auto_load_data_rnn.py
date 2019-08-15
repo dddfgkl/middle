@@ -116,7 +116,7 @@ def build_graph():
     out2 = tf.nn.dropout(out1, keep_prob)
 
     activate1 = tf.nn.relu(out2)
-    logits = tf.add(tf.matmul(activate1, b2), b2)
+    logits = tf.add(tf.matmul(activate1, w2), b2)
     outputs = tf.nn.sigmoid(logits, name="outputs")
 
     with tf.name_scope("loss"):
