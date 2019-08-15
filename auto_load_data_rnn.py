@@ -30,6 +30,7 @@ embed_size = 256
 LEARNING_RATE = 0.001
 BATCH_SIZE = 20
 EPOCHES = 10
+KEEP_PROB = 0.2
 
 reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 
@@ -155,8 +156,7 @@ def build_graph():
 
             for x_batch, y_batch in get_batch(train_data, train_labels):
                 _, batch_loss = sess.run([optimizer, loss],
-                                         feed_dict={input: x_batch, targets: y_batch})
-
+                                         feed_dict={input: x_batch, targets: y_batch, keep_prob: KEEP_PROB})
                 total_loss += batch_loss
 
             # 在train上准确率
