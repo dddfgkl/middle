@@ -30,7 +30,7 @@ embed_size = 256
 LEARNING_RATE = 0.001
 BATCH_SIZE = 20
 EPOCHES = 10
-KEEP_PROB = 0.2
+KEEP_PROB = tf.float32(0.2)
 
 reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
 
@@ -145,6 +145,7 @@ def build_graph():
 
     # 计算图,进行训练
     with tf.Session() as sess:
+        print("----start build the graph----")
         sess.run(tf.global_variables_initializer())
 
         writer = tf.summary.FileWriter("./graphs/dnn", tf.get_default_graph())
@@ -160,18 +161,19 @@ def build_graph():
                 total_loss += batch_loss
 
             # 在train上准确率
-            train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
-            train_acc = train_corrects / train_labels.shape[0]
+            # train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
+            # train_acc = train_corrects / train_labels.shape[0]
             # dnn_train_accuracy.append(train_acc)
 
             # 在test上准确率
-            test_corrects = sess.run(accuracy, feed_dict={input: test_data, targets: test_data})
+            test_data_small, test_labels_samll = get_batch(test_data, test_labels, 1000)
+            test_corrects = sess.run(accuracy, feed_dict={input: test_data_small, targets: test_labels_samll})
             test_acc = test_corrects / test_data.shape[0]
             # dnn_test_accuracy.append(test_acc)
 
             print("Epoch: {}, Train loss: {:.4f}, Train accuracy: {:.4f}, Test accuracy: {:.4f}".format(epoch + 1,
                                                                                                         total_loss / n_batches,
-                                                                                                        train_acc,
+                                                                                                        0,
                                                                                                         test_acc))
         # 存储模型
         saver = tf.train.Saver()
