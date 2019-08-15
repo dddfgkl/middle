@@ -113,7 +113,7 @@ def build_graph():
 
     average_pooling = tf.reduce_mean(embeded, [1])
     out1 = tf.matmul(average_pooling, w1) + b1
-    out2 = tf.nn.droput(out1, keep_prob)
+    out2 = tf.nn.dropout(out1, keep_prob)
 
     activate1 = tf.nn.relu(out2)
     logits = tf.add(tf.matmul(activate1, b2), b2)
