@@ -159,11 +159,10 @@ def build_graph():
                 _, batch_loss = sess.run([optimizer, loss],
                                          feed_dict={input: x_batch, targets: y_batch, keep_prob: KEEP_PROB})
                 total_loss += batch_loss
-                print("epoch: {}, batch_loss: {}, total_loss: {}")
 
             # 在train上准确率
-            # train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
-            # train_acc = train_corrects / train_labels.shape[0]
+            train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
+            train_acc = train_corrects / train_labels.shape[0]
             # dnn_train_accuracy.append(train_acc)
 
             # 在test上准确率
@@ -174,7 +173,7 @@ def build_graph():
 
             print("Epoch: {}, Train loss: {:.4f}, Train accuracy: {:.4f}, Test accuracy: {:.4f}".format(epoch + 1,
                                                                                                         total_loss / n_batches,
-                                                                                                        0,
+                                                                                                        train_acc,
                                                                                                         test_acc))
         # 存储模型
         saver = tf.train.Saver()
