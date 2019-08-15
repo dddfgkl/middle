@@ -28,7 +28,7 @@ SENTENCE_LIMIT_SIZE = 200
 vocab_size = len(word_index)
 embed_size = 256
 LEARNING_RATE = 0.001
-BATCH_SIZE = 20
+BATCH_SIZE = 200
 EPOCHES = 10
 KEEP_PROB = 0.2
 
@@ -159,6 +159,7 @@ def build_graph():
                 _, batch_loss = sess.run([optimizer, loss],
                                          feed_dict={input: x_batch, targets: y_batch, keep_prob: KEEP_PROB})
                 total_loss += batch_loss
+                print("epoch: {}, batch_loss: {}, total_loss: {}")
 
             # 在train上准确率
             # train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels})
