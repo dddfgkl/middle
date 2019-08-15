@@ -94,7 +94,7 @@ test_data = keras.preprocessing.sequence.pad_sequences(test_data,
                                                        maxlen=256)
 
 def pre_build():
-    input = tf.placeholder(tf.float32, [None, None], "input")
+    input = tf.placeholder(tf.int32, [None, None], "input")
     targets = tf.placeholder(tf.float32, [None, None], "target")
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
