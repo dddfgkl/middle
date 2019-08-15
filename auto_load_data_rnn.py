@@ -10,7 +10,7 @@ imdb = keras.datasets.imdb
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data('./imdb.npz',num_words=15000)
 
 
-print("Training entries: {}, labels: {}".format(len(train_data), len(train_labels)))
+print("Training entries: {}, labels: {}".format(train_data.shape, train_labels))
 time.sleep(5)
 
 # A dictionary mapping words to an integer index
