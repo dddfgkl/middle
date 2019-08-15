@@ -1,5 +1,6 @@
 import tensorflow as tf
 from tensorflow import keras
+import time
 
 import numpy as np
 print(tf.__version__)
@@ -8,7 +9,9 @@ imdb = keras.datasets.imdb
 
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data('./imdb.npz',num_words=15000)
 
+
 print("Training entries: {}, labels: {}".format(len(train_data), len(train_labels)))
+time.sleep(5)
 
 # A dictionary mapping words to an integer index
 word_index = imdb.get_word_index()
@@ -20,7 +23,7 @@ word_index["<START>"] = 1
 word_index["<UNK>"] = 2  # unknown
 word_index["<UNUSED>"] = 3
 
-SENTENCE_LIMIT_SIZE = 1
+SENTENCE_LIMIT_SIZE = 200
 vocab_size = len(word_index)
 embed_size = 256
 LEARNING_RATE = 0.001
@@ -59,6 +62,16 @@ def convert_text_to_token(sentence, word_to_token_map=word_index, limit_size=SEN
 
     return tokens
 
+def padding_data(data_array):
+    new_padding_data = []
+    for row in data_array:
+        if len(row ) < SENTENCE_LIMIT_SIZE:
+            row.extend([0] * (SENTENCE_LIMIT_SIZE - len(row)))
+        else:
+            row = row[:SENTENCE_LIMIT_SIZE]
+        new_padding_data.append(row)
+    return new_padding_data
+
 def get_batch(x, y, batch_size=BATCH_SIZE, shuffle=True):
     assert x.shape[0] == y.shape[0], print("error shape!")
     # shuffle
@@ -80,22 +93,21 @@ def get_batch(x, y, batch_size=BATCH_SIZE, shuffle=True):
 
 
 test_decode = decode_review(train_data[20])
-
-
-
+print("-----padding raw data----")
 train_data = keras.preprocessing.sequence.pad_sequences(train_data,
                                                         value=word_index["<PAD>"],
                                                         padding='post',
-                                                        maxlen=256)
+                                                        maxlen=SENTENCE_LIMIT_SIZE)
+
 
 test_data = keras.preprocessing.sequence.pad_sequences(test_data,
                                                        value=word_index["<PAD>"],
                                                        padding='post',
-                                                       maxlen=256)
+                                                       maxlen=SENTENCE_LIMIT_SIZE)
 
 def pre_build():
-    input = tf.placeholder(tf.int32, [None, None], "input")
-    targets = tf.placeholder(tf.float32, [None, None], "target")
+    input = tf.placeholder(tf.int32, [None, SENTENCE_LIMIT_SIZE], "input")
+    targets = tf.placeholder(tf.float32, [None, 1], "target")
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
     return input, targets, keep_prob
