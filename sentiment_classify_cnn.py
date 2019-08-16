@@ -119,6 +119,7 @@ def build_graph():
     embedding = tf.Variable(tf.truncated_normal((vocab_size, embed_size), stddev=0.01))
 
     filter1_size = tf.Variable(tf.random_normal([3, 3, 1, 100]))
+    print("filter1_size:", filter1_size.shape)
     pooling_size1 = tf.Variable(tf.random_normal([1, 2, 2, 1]))
     filter2_size = tf.Variable(tf.random_normal([5, 5, 100, 100]))
     # w1 = tf.Variable(tf.random_normal(filter1_size), name="w1")
@@ -137,7 +138,7 @@ def build_graph():
 
     conv1 = tf.nn.conv2d(input=embeded_expand, filter=filter1_size, strides=[1,1,1,1], padding="VALID")
     a1 = tf.nn.relu(tf.add(conv1, b1))
-    m1 = tf.nn.max_pool(input=a1, ksize=pooling_size1, strides=pooling_size1, padding="SAME")
+    m1 = tf.nn.max_pool(value=a1, ksize=pooling_size1, strides=pooling_size1, padding="SAME")
 
     conv2 = tf.nn.conv2d(input=m1, filter=filter2_size, strides=[1,1,1,1], padding="VALID")
     a2 = tf.nn.relu(tf.add(conv2, b2))
