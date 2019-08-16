@@ -130,8 +130,8 @@ def build_graph():
     # w2 = tf.Variable(tf.random_normal(filter2_size), name="w2")
     b2 = tf.Variable(tf.random_normal([100]), name="b2")
 
-    w3 = tf.Variable(tf.random_normal([123, 1]), name="w3")
-    b3 = tf.Variable(tf.random_normal([123]), name="b3")
+    w3 = tf.Variable(tf.random_normal([100, 1]), name="w3")
+    b3 = tf.Variable(tf.random_normal([100]), name="b3")
 
     input, targets, keep_prob = pre_build()
     embeded = tf.nn.embedding_lookup(embedding, input)
@@ -151,7 +151,9 @@ def build_graph():
     print("max_pool:", m2.shape)
 
     reduce_dim = tf.squeeze(m2, [1], name="queeze")
+    print("reduce_dim:", reduce_dim.shape)
     average_pooling = tf.reduce_mean(reduce_dim, [1])
+    print("average_polling:", average_pooling.shape)
     logits = tf.add(tf.matmul(average_pooling, w3), b3)
 
     outputs = tf.nn.sigmoid(logits, name="outputs")
