@@ -24,7 +24,7 @@ word_index["<START>"] = 1
 word_index["<UNK>"] = 2  # unknown
 word_index["<UNUSED>"] = 3
 
-SENTENCE_LIMIT_SIZE = 100
+SENTENCE_LIMIT_SIZE = 50
 vocab_size = len(word_index)
 embed_size = 64
 LEARNING_RATE = 0.001
@@ -187,10 +187,10 @@ def build_graph():
                 total_loss += batch_loss
 
             # 在train上准确率
-            train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels, keep_prob:1.0})
-            train_acc = train_corrects / train_labels.shape[0]
+            #train_corrects = sess.run(accuracy, feed_dict={input: train_data, targets: train_labels, keep_prob:1.0})
+            #train_acc = train_corrects / train_labels.shape[0]
             # dnn_train_accuracy.append(train_acc)
-
+            print("----start eval----")
             # 在test上准确率
             test_data_small, test_labels_samll = test_data, test_labels
             test_corrects = sess.run(accuracy, feed_dict={input: test_data_small, targets: test_labels_samll, keep_prob:1.0})
@@ -199,7 +199,7 @@ def build_graph():
 
             print("Epoch: {}, Train loss: {:.4f}, Train accuracy: {:.4f}, Test accuracy: {:.4f}".format(epoch + 1,
                                                                                                         total_loss / n_batches,
-                                                                                                        train_acc,
+                                                                                                        0,
                                                                                                         test_acc))
         # 存储模型
         saver = tf.train.Saver()
