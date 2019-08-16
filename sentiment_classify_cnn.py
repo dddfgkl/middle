@@ -24,11 +24,11 @@ word_index["<START>"] = 1
 word_index["<UNK>"] = 2  # unknown
 word_index["<UNUSED>"] = 3
 
-SENTENCE_LIMIT_SIZE = 200
+SENTENCE_LIMIT_SIZE = 100
 vocab_size = len(word_index)
-embed_size = 256
+embed_size = 64
 LEARNING_RATE = 0.001
-BATCH_SIZE = 200
+BATCH_SIZE = 20
 EPOCHES = 100
 KEEP_PROB = 0.5
 
@@ -130,7 +130,7 @@ def build_graph():
     # w2 = tf.Variable(tf.random_normal(filter2_size), name="w2")
     b2 = tf.Variable(tf.random_normal([100]), name="b2")
 
-    w3 = tf.Variable(tf.random_normal([100, 1]), name="w3")
+    w3 = tf.Variable(tf.random_normal([47, 1]), name="w3")
     b3 = tf.Variable(tf.random_normal([1]), name="b3")
 
     input, targets, keep_prob = pre_build()
