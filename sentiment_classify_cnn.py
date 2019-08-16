@@ -120,7 +120,7 @@ def build_graph():
 
     filter1_size = tf.Variable(tf.random_normal([3, 3, 1, 100]))
     print("filter1_size:", filter1_size.shape)
-    pooling_size1 = tf.Variable(tf.random_normal([1, 2, 2, 1]))
+    pooling_size1 = [1,2,2,1]
     filter2_size = tf.Variable(tf.random_normal([5, 5, 100, 100]))
     # w1 = tf.Variable(tf.random_normal(filter1_size), name="w1")
     b1 = tf.Variable(tf.random_normal([100]), name="b1")
