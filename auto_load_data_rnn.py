@@ -115,38 +115,22 @@ def pre_build():
     return input, targets, keep_prob
 
 def build_graph():
-    print("start build the graph----")
     embedding = tf.Variable(tf.truncated_normal((vocab_size, embed_size), stddev=0.01))
+    w1 = tf.Variable(tf.random_normal([256, 16]))
+    b1 = tf.Variable(tf.random_normal([16]))
 
-    filter1_size = [3, 3, 1, 100]
-    pooling_size1 = [1, 2, 2, 1]
-    filter2_size = [5, 5, 100, 100]
-    w1 = tf.Variable(tf.random_normal(filter1_size), name="w1")
-    b1 = tf.Variable(tf.random_normal([100]), name="b1")
-
-
-    w2 = tf.Variable(tf.random_normal(filter2_size), name="w2")
-    b2 = tf.Variable(tf.random_normal([100]), name="b2")
-
-    w3 = tf.Variable(tf.random_normal([123, 1]), name="w3")
-    b3 = tf.Variable(tf.random_normal([123]), name="b3")
+    w2 = tf.Variable(tf.random_normal([16, 1]))
+    b2 = tf.Variable(tf.random_normal([1]))
 
     input, targets, keep_prob = pre_build()
     embeded = tf.nn.embedding_lookup(embedding, input)
-    embeded_expand = tf.expand_dims(embeded, -1, name="expand_dim")
 
-    conv1 = tf.nn.conv2d(input=embeded_expand, filter=filter1_size, strides=[1,1,1,1], padding="VALID")
-    a1 = tf.nn.relu(tf.add(conv1, b1))
-    m1 = tf.nn.max_pool(input=a1, ksize=pooling_size1, strides=pooling_size1, padding="SAME")
+    average_pooling = tf.reduce_mean(embeded, [1])
+    out1 = tf.matmul(average_pooling, w1) + b1
+    out2 = tf.nn.dropout(out1, keep_prob)
 
-    conv2 = tf.nn.conv2d(input=m1, filter=filter2_size, strides=[1,1,1,1], padding="VALID")
-    a2 = tf.nn.relu(tf.add(conv2, b2))
-    m2 = tf.nn.max_pool(value=a2, ksize=[1, 95, 1, 1], strides=[1,1,1,1], padding="VALID", name="max_pooling")
-
-    reduce_dim = tf.squeeze(m2, [1], name="queeze")
-    average_pooling = tf.reduce_mean(reduce_dim, [1])
-    logits = tf.add(tf.matmul(average_pooling, w3), b3)
-
+    activate1 = tf.nn.relu(out2)
+    logits = tf.add(tf.matmul(activate1, w2), b2)
     outputs = tf.nn.sigmoid(logits, name="outputs")
 
     with tf.name_scope("loss"):
@@ -211,3 +195,4 @@ def restore_graph():
 
 
 build_graph()
+
