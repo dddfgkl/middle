@@ -118,9 +118,9 @@ def build_graph():
     print("start build the graph----")
     embedding = tf.Variable(tf.truncated_normal((vocab_size, embed_size), stddev=0.01))
 
-    filter1_size = [3, 3, 1, 100]
-    pooling_size1 = [1, 2, 2, 1]
-    filter2_size = [5, 5, 100, 100]
+    filter1_size = tf.Variable([3, 3, 1, 100])
+    pooling_size1 = tf.Variable([1, 2, 2, 1])
+    filter2_size = tf.Variable([5, 5, 100, 100])
     w1 = tf.Variable(tf.random_normal(filter1_size), name="w1")
     b1 = tf.Variable(tf.random_normal([100]), name="b1")
 

@@ -20,9 +20,13 @@ def demo1():
 
     print("demo1 is over")
 
+def demo2():
+    a = [2,2,2,2]
+    b = tf.Variable(a)
+    print(b.shape)
 
 def main():
-    demo1()
+    demo2()
 
 if __name__ == '__main__':
     main()
