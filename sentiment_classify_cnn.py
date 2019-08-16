@@ -141,11 +141,14 @@ def build_graph():
     conv1 = tf.nn.conv2d(input=embeded_expand, filter=filter1_size, strides=[1,1,1,1], padding="VALID")
     print("conv1:", conv1.shape)
     a1 = tf.nn.relu(tf.add(conv1, b1))
-    m1 = tf.nn.max_pool(value=a1, ksize=pooling_size1, strides=pooling_size1, padding="SAME")
+    m1 = tf.nn.max_pool(value=a1, ksize=pooling_size1, strides=pooling_size1, padding="VALID")
+    print("max_pool1:", m1.shape)
 
     conv2 = tf.nn.conv2d(input=m1, filter=filter2_size, strides=[1,1,1,1], padding="VALID")
+    print("conv2:", conv2.shape)
     a2 = tf.nn.relu(tf.add(conv2, b2))
     m2 = tf.nn.max_pool(value=a2, ksize=[1, 95, 1, 1], strides=[1,1,1,1], padding="VALID", name="max_pooling")
+    print("max_pool:", m2.shape)
 
     reduce_dim = tf.squeeze(m2, [1], name="queeze")
     average_pooling = tf.reduce_mean(reduce_dim, [1])
