@@ -130,7 +130,7 @@ def build_graph():
     # w2 = tf.Variable(tf.random_normal(filter2_size), name="w2")
     b2 = tf.Variable(tf.random_normal([100]), name="b2")
 
-    w3 = tf.Variable(tf.random_normal([47, 1]), name="w3")
+    w3 = tf.Variable(tf.random_normal([27, 1]), name="w3")
     b3 = tf.Variable(tf.random_normal([1]), name="b3")
 
     input, targets, keep_prob = pre_build()
@@ -147,7 +147,7 @@ def build_graph():
     conv2 = tf.nn.conv2d(input=m1, filter=filter2_size, strides=[1,1,1,1], padding="VALID")
     print("conv2:", conv2.shape)
     a2 = tf.nn.relu(tf.add(conv2, b2))
-    m2 = tf.nn.max_pool(value=a2, ksize=[1, 95, 1, 1], strides=[1,1,1,1], padding="VALID", name="max_pooling")
+    m2 = tf.nn.max_pool(value=a2, ksize=[1, 45, 1, 1], strides=[1,1,1,1], padding="VALID", name="max_pooling")
     print("max_pool:", m2.shape)
 
     reduce_dim = tf.squeeze(m2, [1], name="queeze")
