@@ -131,7 +131,7 @@ def build_graph():
     b2 = tf.Variable(tf.random_normal([100]), name="b2")
 
     w3 = tf.Variable(tf.random_normal([100, 1]), name="w3")
-    b3 = tf.Variable(tf.random_normal([100]), name="b3")
+    b3 = tf.Variable(tf.random_normal([1]), name="b3")
 
     input, targets, keep_prob = pre_build()
     embeded = tf.nn.embedding_lookup(embedding, input)
