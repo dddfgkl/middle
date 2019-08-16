@@ -130,7 +130,7 @@ def build_graph():
     # w2 = tf.Variable(tf.random_normal(filter2_size), name="w2")
     b2 = tf.Variable(tf.random_normal([100]), name="b2")
 
-    w3 = tf.Variable(tf.random_normal([27, 1]), name="w3")
+    w3 = tf.Variable(tf.random_normal([100, 1]), name="w3")
     b3 = tf.Variable(tf.random_normal([1]), name="b3")
 
     input, targets, keep_prob = pre_build()
