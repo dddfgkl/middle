@@ -155,6 +155,7 @@ def build_graph():
     average_pooling = tf.reduce_mean(reduce_dim, [1])
     print("average_polling:", average_pooling.shape)
     logits = tf.add(tf.matmul(average_pooling, w3), b3)
+    print("logits:", logits.shape)
 
     outputs = tf.nn.sigmoid(logits, name="outputs")
 
